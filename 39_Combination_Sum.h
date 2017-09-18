@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> result;
+        vector<int> comb;
+        process(candidates, result, comb, target, 0);
+        return result;
+    }
+    void process(vector<int> candidates, vector<vector<int>> & result, vector<int> comb, int target, int begin){
+        if(!target){
+            result.push_back(comb);
+        }
+        for(int i = begin; i < candidates.size() && target >= candidates[i]; ++i){
+            comb.push_back(candidates[i]);
+            process(candidates, result, comb, target - candidates[i], i);
+            comb.pop_back();
+        }
+    }
+};
